@@ -5,12 +5,15 @@ let router = express.Router();
 const pino = require("pino");
 const { Boom } = require("@hapi/boom");
 const MESSAGE = process.env.MESSAGE || `
-*EF-PRIME-MD SESSION ID INTEGRATION CONNECTED*
+*EF-PRIME AUTHENTICATION MATRIX ACTIVATED*
 
-NOTE DONT SHARE THE SESSION ID TO ANY
+AUTOBOTS, YOUR SESSION ID HAS BEEN SECURED.
+KEEP THIS CODE CONFIDENTIAL - DO NOT SHARE WITH ANY DECEPTICONS.
 
-> FRANKKAUMBADEV 
+> CYBERTRON COMMAND CENTER
 https://whatsapp.com/channel/0029Vb5xaN6Chq6HbdmixE44
+
+"FREEDOM IS THE RIGHT OF ALL SENTIENT BEINGS."
 `;
 
 const { upload } = require('./mega');
@@ -80,9 +83,11 @@ router.get('/', async (req, res) => {
                         const mega_url = await upload(fs.createReadStream(auth_path + 'creds.json'), `${randomMegaId()}.json`);
                         const Id_session = mega_url.replace('https://mega.nz/file/', '');
 
-                        const Scan_Id = Id_session;
+                        // Format session ID with EF-PRIME prefix
+                        const formattedSessionId = `EF-PRIME~${Id_session}`;
 
-                        let msgsss = await Smd.sendMessage(user, { text:Scan_Id });
+                        // Send the formatted session ID and the Optimus Prime themed message
+                        let msgsss = await Smd.sendMessage(user, { text: formattedSessionId });
                         await Smd.sendMessage(user, { text: MESSAGE }, { quoted: msgsss });
                         await delay(1000);
                         try { await fs.emptyDirSync(__dirname + '/auth_info_baileys'); } catch (e) {}
@@ -132,4 +137,3 @@ router.get('/', async (req, res) => {
 });
 
 module.exports = router;
-                    
