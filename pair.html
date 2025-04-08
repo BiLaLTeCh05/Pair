@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EF-PRIME-MD Pair</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(to bottom, #000428, #004e92);
+      font-family: 'Orbitron', Arial, sans-serif;
+      color: white;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .box {
+      width: 300px;
+      height: 360px;
+      padding: 20px;
+      position: relative;
+      text-align: center;
+      background-color: #1a1a2e;
+      border-radius: 10px;
+      transform: perspective(1000px) rotateY(0deg);
+      box-shadow: 0 0 20px rgba(0, 207, 255, 0.7);
+      border: 2px solid #00a8ff;
+      overflow: hidden;
+    }
+
+    .box::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #ff0000, #ffaa00);
+      z-index: 1;
+    }
+
+    #text {
+      color: #ffffff;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff0000;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+
+    .subtitle {
+      color: #00a8ff;
+      font-size: 14px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .input-container {
+      display: flex;
+      background: rgba(0, 24, 69, 0.8);
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0, 168, 255, 0.5);
+      padding: 0.3rem;
+      gap: 0.3rem;
+      max-width: 300px;
+      width: 100%;
+      margin: 15px auto;
+      border: 1px solid #00a8ff;
+    }
+
+    .input-container input {
+      border-radius: 0.8rem 0 0 0.8rem;
+      background: rgba(0, 36, 102, 0.5);
+      box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      flex-basis: 75%;
+      padding: 1rem;
+      border: none;
+      border-left: 2px solid #ff0000;
+      color: #ffffff;
+      transition: all 0.2s ease-in-out;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .input-container input::placeholder {
+      color: #4998FF;
+      opacity: 0.7;
+    }
+
+    .input-container input:focus {
+      border-left: 2px solid #ff0000;
+      outline: none;
+      box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 0, 0, 0.5);
+    }
+
+    .input-container button {
+      flex-basis: 25%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #ff0000, #ff3300);
+      font-weight: 900;
+      letter-spacing: 0.2rem;
+      text-transform: uppercase;
+      color: white;
+      border: none;
+      width: 100%;
+      border-radius: 0 1rem 1rem 0;
+      transition: all 0.2s ease-in-out;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+    }
+
+    .input-container button:hover {
+      background: linear-gradient(135deg, #ff3300, #ff0000);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+    }
+
+    .centered-text {
+      text-align: center;
+      color: #ffffff;
+    }
+
+    #waiting-message {
+      color: #00a8ff;
+      font-weight: bold;
+    }
+
+    #pair {
+      margin-top: 20px;
+    }
+
+    .transformer-icon {
+      color: #ff0000;
+      font-size: 24px;
+      margin-bottom: 10px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 500px) {
+      .box {
+        width: 90%; 
+      }
+      
+      .input-container {
+        flex-direction: column;
+      }
+
+      .input-container input {
+        border-radius: 0.8rem;
+        width: 80%;
+        margin-bottom: 10px;
+      }
+
+      .input-container button {
+        padding: 0.8rem;
+        border-radius: 0.8rem;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="main">
+      <div class="box" id="box">
+        <div id="text">
+          <div class="transformer-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="logo">EF-PRIME-MD</div>
+          <div class="subtitle">AUTOBOTS SECURE CONNECTION</div>
+          <h6 style="color: #00a8ff;">Enter your number with a country code.</h6>
+          <div class="input-container">
+            <input placeholder="265993*******" type="number" id="number" name="">
+            <button id="submit">PAIR</button>
+          </div>
+          
+          <a id="waiting-message" class="centered-text" style="display: none;">ESTABLISHING SECURE LINK...</a>
+          <br>
+          <main id="pair"></main>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    let a = document.getElementById("pair");
+    let b = document.getElementById("submit");
+    let c = document.getElementById("number");
+    let box = document.getElementById("box");
+
+    async function Copy() {
+      let text = document.getElementById("copy").innerText;
+      let obj = document.getElementById("copy");
+      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+      obj.innerText = "COPIED TO CLIPBOARD";
+      obj.style = "color:#00a8ff;font-weight:bold";
+      obj.size = "5";
+      setTimeout(() => {
+        obj.innerText = text;
+        obj.style = "color:#ff0000;font-weight:bold";
+        obj.size = "5";
+      }, 800);
+    }
+
+    b.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!c.value) {
+        a.innerHTML = '<a style="color:#ff0000;font-weight:bold">ENTER YOUR COMM-LINK NUMBER WITH COUNTRY CODE</a><br><br>';
+      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
+        a.innerHTML = '<a style="color:#ff0000;font-weight:bold">INVALID COMM-LINK FORMAT</a><br><br>';
+      } else {
+        const bc = c.value.replace(/[^0-9]/g, "");
+        let bb = "";
+        let bbc = "";
+        const cc = bc.split('');
+        cc.map(a => {
+          bbc += a;
+          if (bbc.length == 3) {
+            bb += " " + a;
+          } else if (bbc.length == 8) {
+            bb += " " + a;
+          } else {
+            bb += a;
+          }
+        });
+        c.type = "text";
+        c.value = "+" + bb;
+        c.style = "color:#00a8ff;font-size:18px";
+        a.innerHTML = '<a style="color:#00a8ff;font-weight:bold">ESTABLISHING SECURE COMM-LINK...</a><br><br>';
+        let { data } = await axios(`/code?number=${bc}`);
+        let code = data.code || "SERVICE UNAVAILABLE";
+        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:#ff0000;font-weight:bold;cursor:pointer" size="5">CODE: <span style="color:#00a8ff;font-weight:bold">' + code + '</span></font><br><br><span style="color:#ffffff;font-size:12px">TAP CODE TO COPY</span>';
+      }
+    });
+  </script>
+</body>
+</html>
