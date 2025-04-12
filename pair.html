@@ -479,6 +479,23 @@
       100% { opacity: 1; }
     }
     
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      color: var(--primary-color);
+      opacity: 0.8;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 10px 0;
+      background: rgba(0, 24, 69, 0.3);
+      border-top: 1px solid rgba(0, 168, 255, 0.2);
+      z-index: 100;
+    }
+    
     @media (max-width: 500px) {
       .box {
         width: 90%;
@@ -556,6 +573,10 @@
     </div>
   </div>
   
+  <div class="footer">
+    Frank Dev Inc &copy; 2025
+  </div>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
   <script>
     // Create background particles
@@ -585,11 +606,11 @@
       await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
       obj.innerHTML = "<i class='fas fa-check'></i> COPIED TO CLIPBOARD";
       obj.style = "color:#00a8ff;font-weight:bold";
-      box.style.boxShadow = "0 0 30px rgba(0, 207, 255, 0.9)";
+      obj.size = "5";
       setTimeout(() => {
         obj.innerText = text;
         obj.style = "color:#ff0000;font-weight:bold";
-        box.style.boxShadow = "0 0 20px rgba(0, 207, 255, 0.7)";
+        obj.size = "5";
       }, 800);
     }
 
@@ -618,28 +639,19 @@
         c.value = "+" + bb;
         c.style = "color:#00a8ff;font-size:18px";
         waitingMessage.style.display = "block";
-        b.disabled = true;
-        b.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        box.style.boxShadow = "0 0 30px rgba(0, 207, 255, 0.9)";
+        a.innerHTML = '<a style="color:#00a8ff;font-weight:bold">ESTABLISHING SECURE COMM-LINK...</a><br><br>';
         
         try {
-          // Simulate API call with timeout
-          await new Promise(resolve => setTimeout(resolve, 1500));
-          // let { data } = await axios(`/code?number=${bc}`);
-          // let code = data.code || "SERVICE UNAVAILABLE";
-          let code = Math.floor(100000 + Math.random() * 900000); // Simulated code
-          
+          let { data } = await axios(`/code?number=${bc}`);
+          let code = data.code || "SERVICE UNAVAILABLE";
           waitingMessage.style.display = "none";
           a.innerHTML = '<div id="copy" onclick="Copy()" style="color:#ff0000;font-weight:bold;cursor:pointer"><i class="fas fa-key"></i> CODE: <span style="color:#00a8ff;font-weight:bold">' + code + '</span></div><br><div style="color:#ffffff;font-size:12px;margin-top:8px;"><i class="fas fa-hand-pointer"></i> TAP CODE TO COPY</div>';
         } catch (error) {
           waitingMessage.style.display = "none";
           a.innerHTML = '<a style="color:#ff0000;font-weight:bold"><i class="fas fa-exclamation-triangle"></i> CONNECTION ERROR</a><br><br>';
-        } finally {
-          b.disabled = false;
-          b.innerHTML = 'PAIR';
         }
       }
     });
   </script>
 </body>
-</html>
+    </html>
